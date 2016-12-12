@@ -1,2 +1,2 @@
-# bot
+# Bot
 Golang bot library

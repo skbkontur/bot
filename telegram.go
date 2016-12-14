@@ -6,58 +6,34 @@ import (
 	"strings"
 	"time"
 
-	logging "github.com/op/go-logging"
 	"github.com/tucnak/telebot"
 )
 
 const messenger = "telegram"
 
-var (
-	logger *logging.Logger
-)
+// Start api loop
+func (b *telegram) Loop(messages chan telebot.Message, timeout time.Duration) {
+	b.bot.Listen(messages, timeout)
 
-// StartTelegramBot creates an api and start bot
-func StartTelegramBot(key string, log *logging.Logger, db Database) Bot {
-	logger = log
-	messages := make(chan telebot.Message)
-
-	api := &telegram{
-		key:      key,
-		db:       db,
-		messages: messages,
-	}
-	var err error
-	api.telebot, err = telebot.NewBot(key)
-	if err != nil {
-		log.Warning("Fail to create bot", err)
-	}
-	if db.RegisterBotIfAlreadyNot(key) {
-		go api.Listen()
-	}
-	return api
-}
-
-func (b *telegram) Listen() {
-	b.telebot.Listen(b.messages, 1*time.Second)
-
-	for message := range b.messages {
+	for message := range messages {
 		if err := b.handleMessage(message); err != nil {
-			logger.Errorf("Error sending message: %s", err)
+			log.WithError(err).Error("Error sending message")
 		}
 	}
 }
 
-func (b *telegram) Send(username, message string) error {
+func (b *telegram) Talk(username, message string) error {
 	uid, err := b.db.GetIDByUsername(messenger, username)
 	if err != nil {
 		return err
 	}
-	logger.Debugf("Uid received: %s", uid)
-	return b.telebot.SendMessage(recipient{uid}, message, nil)
+	var options *telebot.SendOptions
+	return b.bot.SendMessage(recipient{uid}, message, options)
 }
 
 func (b *telegram) handleMessage(message telebot.Message) error {
 	var err error
+	var options *telebot.SendOptions
 	id := strconv.FormatInt(message.Chat.ID, 10)
 	title := message.Chat.Title
 	userTitle := strings.Trim(fmt.Sprintf("%s %s", message.Sender.FirstName, message.Sender.LastName), " ")
@@ -66,26 +42,23 @@ func (b *telegram) handleMessage(message telebot.Message) error {
 	switch {
 	case chatType == "private" && message.Text == "/start":
 		if username == "" {
-			b.telebot.SendMessage(message.Chat, "Username is empty. Please add username in Telegram.", nil)
+			b.bot.SendMessage(message.Chat, "Username is empty. Please add username in Telegram.", options)
 		} else {
-			logger.Debugf("Start received: %s", userTitle)
 			err = b.db.SetUsernameID(messenger, "@"+username, id)
 			if err != nil {
 				return err
 			}
-			b.telebot.SendMessage(message.Chat, fmt.Sprintf("Okay, %s, your id is %s", userTitle, id), nil)
+			b.bot.SendMessage(message.Chat, fmt.Sprintf("Okay, %s, your id is %s", userTitle, id), nil)
 		}
 	case chatType == "supergroup" || chatType == "group":
-		logger.Debugf("Added to %s: %s", chatType, title)
 		fmt.Println(chatType, title)
 		err = b.db.SetUsernameID(messenger, title, id)
 		if err != nil {
 			return err
 		}
-		b.telebot.SendMessage(message.Chat, fmt.Sprintf("Hi, all!\nI will send alerts in this group (%s).", title), nil)
+		b.bot.SendMessage(message.Chat, fmt.Sprintf("Hi, all!\nI will send alerts in this group (%s).", title), nil)
 	default:
-		b.telebot.SendMessage(message.Chat, "I don't understand you :(", nil)
+		b.bot.SendMessage(message.Chat, "I don't understand you :(", nil)
 	}
-	logger.Debugf("Message received: %v", message)
 	return err
 }

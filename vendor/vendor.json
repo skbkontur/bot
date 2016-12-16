@@ -3,10 +3,34 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "h5Q1o+kA7VMAR5QpBzVJZbBEgC0=",
+			"path": "github.com/Sirupsen/logrus",
+			"revision": "881bee4e20a5d11a6a88a5667c6f292072ac1963",
+			"revisionTime": "2016-12-02T02:35:07Z"
+		},
+		{
+			"checksumSHA1": "KCWVxG+J8SxHGlGiUghe0KBGsa8=",
+			"path": "github.com/fatih/structs",
+			"revision": "dc3312cb1a4513a366c4c9e622ad55c32df12ed3",
+			"revisionTime": "2016-08-07T23:55:29Z"
+		},
+		{
+			"checksumSHA1": "KhsRogdBpJZ2jgO35be/eM1qyqc=",
+			"path": "github.com/jessevdk/go-flags",
+			"revision": "4e64e4a4e2552194cf594243e23aa9baf3b4297e",
+			"revisionTime": "2016-12-15T10:56:53Z"
+		},
+		{
 			"checksumSHA1": "Sh9gSysXXXM1RDCFjI/hamW1FNY=",
 			"path": "github.com/mitchellh/hashstructure",
 			"revision": "b098c52ef6beab8cd82bc4a32422cf54b890e8fa",
 			"revisionTime": "2016-06-09T17:09:29Z"
+		},
+		{
+			"checksumSHA1": "YpdISqnQ+PiFyR2SCKIGvGB79uA=",
+			"path": "github.com/rifflock/lfshook",
+			"revision": "24f7833daaff6c3893606bb79d6722a7e9e089c5",
+			"revisionTime": "2016-12-16T15:02:10Z"
 		},
 		{
 			"checksumSHA1": "t8jzPFIv4DNACv+cuZoigNmjPLQ=",
@@ -19,6 +43,12 @@
 			"path": "github.com/tucnak/telebot",
 			"revision": "6360f1f7d9464545d98f2b478cd83240a8ced98e",
 			"revisionTime": "2016-11-10T20:04:50Z"
+		},
+		{
+			"checksumSHA1": "uTQtOqR0ePMMcvuvAIksiIZxhqU=",
+			"path": "golang.org/x/sys/unix",
+			"revision": "d75a52659825e75fff6158388dddc6a5b04f9ba5",
+			"revisionTime": "2016-12-14T18:38:57Z"
 		},
 		{
 			"checksumSHA1": "AzeP9gpBdHRcPQ5ozBpkBcqfInk=",

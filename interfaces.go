@@ -43,7 +43,7 @@ type Logger interface {
 	Info(message ...interface{})
 }
 
-// Message is a struct for cross-package messages
+// Message is a interface for cross-package messages
 type Message interface {
 	Chattable() tgbotapi.Chattable
 }

@@ -1,0 +1,31 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "Sh9gSysXXXM1RDCFjI/hamW1FNY=",
+			"path": "github.com/mitchellh/hashstructure",
+			"revision": "b098c52ef6beab8cd82bc4a32422cf54b890e8fa",
+			"revisionTime": "2016-06-09T17:09:29Z"
+		},
+		{
+			"checksumSHA1": "t8jzPFIv4DNACv+cuZoigNmjPLQ=",
+			"path": "github.com/technoweenie/multipartstreamer",
+			"revision": "a90a01d73ae432e2611d178c18367fbaa13e0154",
+			"revisionTime": "2013-10-20T00:18:33Z"
+		},
+		{
+			"checksumSHA1": "ZybgW+BTiGsCwdXXgNbPFG46OpA=",
+			"path": "github.com/tucnak/telebot",
+			"revision": "6360f1f7d9464545d98f2b478cd83240a8ced98e",
+			"revisionTime": "2016-11-10T20:04:50Z"
+		},
+		{
+			"checksumSHA1": "AzeP9gpBdHRcPQ5ozBpkBcqfInk=",
+			"path": "gopkg.in/telegram-bot-api.v4",
+			"revision": "0a57807db79efce7f6719fbb2c0e0f83fda79aec",
+			"revisionTime": "2016-11-25T05:50:35Z"
+		}
+	],
+	"rootPath": "github.com/skbkontur/bot"
+}

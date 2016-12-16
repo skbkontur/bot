@@ -1,0 +1,15 @@
+language: go
+dist: trusty
+sudo: required
+go:
+  - 1.7
+before_install:
+  - make prepare
+
+env:
+  secure: "ONyETbAXd9F3KTSf5AAkyo0Mv0IjIAn6Qr8BumkJqzbg+p+njuhcEH10n36/Trja3g0lZ3ZZA6Bi/PdmKJSVXs3TvPCE/cfPB/HApk9R1rHxYeOYZnXWlb5xL9BfMdiaeTkLg0ixRMJoFzZo05xCiJZWwiM2rcyUEnLAQ+2LCfJuIRwFcohor9iqtEQnOlutLUbBxQCr03TdFUUiA2KCGGC6TwlGZa2prCRtx4gk/LYH1ftYAPa76p5FJHLJmz9ccwrQv2dTR6YbE8/5WSJEUTzw6P3Z21O+z1zh3uotq2+pE/Gz0ik0oGBr0o8HCqdhD6dPHkSawmpAE9j9Tdf06OFStNkJSrYgsK7mcIP4eH1xkz3bBx+dc5taxIXSiEdDqeWa/Uk/2BG7uw3OTUHch8iplNnNSh6mGor6FJ59sNqI0NIkELatHQfswlhv7+9AjU/njQAwF7pRB1SOM/ChirQAh5PsUK3CQRnrxhBuaH0ItzH0abFo+yx6XT0LF90MKibnhE4ePyyd/+WDCLbPaXuTKg2PvYZvg8MgECwlWsOTn5eiHhskwQ7BntowKpdOkQTlXJel6kKP5hYWV1gWqP7GjmQuxVkQUnVKgUGaAtNtF2VPZmWKaEsF+HPdGvvVw44trR2wl1JXzAxtCzNejiZ6Dip6lGQydlUG2ebG3Sk="
+
+install:
+  - make test
+  - $HOME/gopath/bin/gover
+  - $HOME/gopath/bin/goveralls -coverprofile=gover.coverprofile -service=travis-ci -repotoken $COVERALLS_TOKEN

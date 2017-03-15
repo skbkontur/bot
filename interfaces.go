@@ -12,6 +12,7 @@ type Bot interface {
 
 // API implements bot go-telegram-bot-api interface
 type API interface {
+	Sender
 	Starter
 }
 
@@ -61,6 +62,11 @@ type Starter interface {
 	Start()
 }
 
+// Sender sends messages
+type Sender interface {
+	Send([]tgbotapi.Chattable)
+}
+
 // Talker talks to username
 type Talker interface {
 	Talk(username, message string) error
@@ -69,9 +75,4 @@ type Talker interface {
 // Telebot interface for telegram bot
 type Telebot interface {
 	SendMessage(telebot.Recipient, string, *telebot.SendOptions) error
-}
-
-// Waiter waits for
-type Waiter interface {
-	Waited(message *tgbotapi.Message) (bool, string)
 }

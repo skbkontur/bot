@@ -26,7 +26,8 @@ func (b *telegram) Start() {
 }
 
 // NewTelegramBot init telegram api bot
-func NewTelegramBot(token string, processor Processor) API {
+func NewTelegramBot(token string, processor Processor, logger Logger) API {
+	log = logger
 	api, err := tgbotapi.NewBotAPI(token)
 	if err != nil {
 		log.Error(err)

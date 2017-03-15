@@ -1,8 +1,6 @@
 package bot
 
 import (
-	"time"
-
 	"github.com/tucnak/telebot"
 	"gopkg.in/telegram-bot-api.v4"
 )
@@ -14,9 +12,7 @@ type Bot interface {
 
 // API implements bot go-telegram-bot-api interface
 type API interface {
-	GetUpdatesChan(u tgbotapi.UpdateConfig) (<-chan tgbotapi.Update, error)
-	Listener
-	Sender
+	Starter
 }
 
 // Database describes bot db operations
@@ -26,11 +22,6 @@ type Database interface {
 	RegisterBotIfAlreadyNot(string) bool
 	DeregisterBots()
 	DeregisterBot(string) error
-}
-
-// Listener starts bot long-polling
-type Listener interface {
-	Listen(chan Message, time.Duration)
 }
 
 // Logger logs messages
@@ -68,11 +59,6 @@ type Processor interface {
 // Starter starts process, usually as goroutine
 type Starter interface {
 	Start()
-}
-
-// Sender sends a chattable
-type Sender interface {
-	Send(tgbotapi.Chattable) (tgbotapi.Message, error)
 }
 
 // Talker talks to username

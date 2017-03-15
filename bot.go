@@ -25,8 +25,8 @@ func (b *telegram) Start() {
 	}
 }
 
-// StartTelegramBot init telegram api bot
-func StartTelegramBot(token string, processor Processor) {
+// NewTelegramBot init telegram api bot
+func NewTelegramBot(token string, processor Processor) API {
 	api, err := tgbotapi.NewBotAPI(token)
 	if err != nil {
 		log.Error(err)
@@ -34,6 +34,6 @@ func StartTelegramBot(token string, processor Processor) {
 	api.Debug = debug
 	log.Debug(fmt.Sprintf("Authorized on account %s", api.Self.UserName))
 
-	//tg := telegram{api: api}
-	//go tg.api.Listen()
+	tg := telegram{api: api, processor: processor}
+	return &tg
 }

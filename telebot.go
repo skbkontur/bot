@@ -51,12 +51,15 @@ func (b *telegram) handleMessage(message telebot.Message) error {
 			b.bot.SendMessage(message.Chat, fmt.Sprintf("Okay, %s, your id is %s", userTitle, id), nil)
 		}
 	case chatType == "supergroup" || chatType == "group":
+		uid, _ := b.db.GetIDByUsername(messenger, title)
+		if uid == "" {
+			b.bot.SendMessage(message.Chat, fmt.Sprintf("Hi, all!\nI will send alerts in this group (%s).", title), nil)
+		}
 		fmt.Println(chatType, title)
 		err = b.db.SetUsernameID(messenger, title, id)
 		if err != nil {
 			return err
 		}
-		b.bot.SendMessage(message.Chat, fmt.Sprintf("Hi, all!\nI will send alerts in this group (%s).", title), nil)
 	default:
 		b.bot.SendMessage(message.Chat, "I don't understand you :(", nil)
 	}

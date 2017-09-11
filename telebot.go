@@ -13,6 +13,7 @@ const messenger = "telegram"
 
 // Start api loop
 func (b *telegram) Loop(messages chan telebot.Message, timeout time.Duration) {
+	log.Info("Starting loop")
 	b.bot.Listen(messages, timeout)
 
 	for message := range messages {
@@ -41,6 +42,7 @@ func (b *telegram) handleMessage(message telebot.Message) error {
 	chatType := message.Chat.Type
 	switch {
 	case chatType == "private" && message.Text == "/start":
+		log.Info("Start received")
 		if username == "" {
 			b.bot.SendMessage(message.Chat, "Username is empty. Please add username in Telegram.", options)
 		} else {

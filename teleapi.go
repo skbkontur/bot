@@ -19,7 +19,7 @@ func NewTelegramBot(token string, processor Processor, logger Logger) API {
 		log.Error(err)
 	}
 	api.Debug = debug
-	log.Debug(fmt.Sprintf("Authorized on account %s", api.Self.UserName))
+	log.Info(fmt.Sprintf("Authorized on account %s", api.Self.UserName))
 
 	tg := telegram{api: api, processor: processor}
 	return &tg

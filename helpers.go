@@ -16,7 +16,7 @@ func StartTelebot(key string, db Database) (Bot, error) {
 	}
 	var err error
 	api.bot, err = telebot.NewBot(key)
-	if err == nil && db.RegisterBotIfAlreadyNot(key) {
+	if err == nil && db.RegisterBotIfAlreadyNot(messenger) {
 		go api.Loop(messages, 1*time.Second)
 	}
 	return api, err
